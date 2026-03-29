@@ -1,0 +1,69 @@
+version: "2"
+linters:
+  default: none
+  enable:
+    - asciicheck
+    - bidichk
+    - bodyclose
+    - errchkjson
+    - errname
+    - errorlint
+    - exhaustive
+    - fatcontext
+    - forbidigo
+    - gocheckcompilerdirectives
+    - gocritic
+    - godot
+    - godox
+    - gosec
+    - importas
+    - intrange
+    - mirror
+    - nakedret
+    - nilnil
+    - noctx
+    - perfsprint
+    - prealloc
+    - predeclared
+    - recvcheck
+    - govet
+    - staticcheck
+    - testifylint
+    - unparam
+    - unused
+    - usestdlibvars
+    - usetesting
+    - wastedassign
+  disable:
+    - gomoddirectives
+  settings:
+    govet:
+      disable:
+        - shadow
+    testifylint:
+      disable:
+        - bool-compare
+        - empty
+        - float-compare
+        - negative-positive
+        - require-error
+  exclusions:
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    paths:
+      - ^third_party(/|$)
+      - ^builtin(/|$)
+      - ^examples(/|$)
+      - ^internal/moduletest(/|$)
+formatters:
+  enable:
+    - gofumpt
+    - goimports
+  exclusions:
+    paths:
+      - ^third_party(/|$)
+      - ^builtin(/|$)
+      - ^examples(/|$)

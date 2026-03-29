@@ -1,0 +1,40 @@
+version: "2"
+linters:
+  default: none
+  enable:
+    - asciicheck
+    - bidichk
+    - bodyclose
+    - errchkjson
+    - fatcontext
+    - forbidigo
+    - godot
+    - godox
+    - importas
+    - intrange
+    - prealloc
+    - recvcheck
+    - usestdlibvars
+  disable:
+    - gomoddirectives
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    paths:
+      - ^third_party(/|$)
+      - ^builtin(/|$)
+      - ^examples(/|$)
+formatters:
+  enable:
+    - gofumpt
+    - goimports
+  exclusions:
+    generated: lax
+    paths:
+      - ^third_party(/|$)
+      - ^builtin(/|$)
+      - ^examples(/|$)

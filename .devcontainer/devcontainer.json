@@ -1,0 +1,46 @@
+{
+  "name": "yaraxwasm",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "remoteUser": "vscode",
+  "updateRemoteUserUID": true,
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "runArgs": [
+    "--privileged",
+    "--security-opt=seccomp=unconfined"
+  ],
+  "mounts": [
+    "source=yaraxwasm-go-build-cache,target=/workspace-cache/go-build,type=volume",
+    "source=yaraxwasm-go-mod-cache,target=/workspace-cache/go-mod,type=volume",
+    "source=yaraxwasm-cargo-target,target=/workspace-cache/cargo-target,type=volume",
+    "source=yaraxwasm-benchcmp,target=/workspace-cache/benchcmp,type=volume"
+  ],
+  "containerEnv": {
+    "CARGO_TARGET_DIR": "/workspace-cache/cargo-target",
+    "CARGO_TERM_COLOR": "always",
+    "GOCACHE": "/workspace-cache/go-build",
+    "GOMODCACHE": "/workspace-cache/go-mod",
+    "YARAX_COMPARE_CLONE_DIR": "/workspace-cache/benchcmp/yara-x",
+    "YARAX_COMPARE_PREFIX": "/workspace-cache/benchcmp/prefix"
+  },
+  "remoteEnv": {
+    "PATH": "/home/vscode/.cargo/bin:/go/bin:${containerEnv:PATH}"
+  },
+  "postCreateCommand": "mkdir -p .tmp && cargo fetch --locked --manifest-path guest/Cargo.toml && go mod download",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "golang.go",
+        "rust-lang.rust-analyzer",
+        "tamasfe.even-better-toml"
+      ],
+      "settings": {
+        "go.toolsManagement.checkForUpdates": "local",
+        "rust-analyzer.check.command": "clippy",
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  }
+}
